@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +23,8 @@ namespace TalentBay1.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-              return _context.Courses != null ? 
+            SetLoggedInInstructorIdInViewBag();
+            return _context.Courses != null ? 
                           View(await _context.Courses.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
         }
@@ -58,6 +60,8 @@ namespace TalentBay1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageURL")] Course course)
         {
+
+            course.InstructorID = GetLoggedInInstructorId();
             if (ModelState.IsValid)
             {
                 _context.Add(course);
@@ -84,8 +88,6 @@ namespace TalentBay1.Controllers
         }
 
         // POST: Courses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageURL")] Course course)
@@ -159,5 +161,17 @@ namespace TalentBay1.Controllers
         {
           return (_context.Courses?.Any(e => e.CourseID == id)).GetValueOrDefault();
         }
+
+        private string GetLoggedInInstructorId()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
+        }
+
+        private void SetLoggedInInstructorIdInViewBag()
+        {
+            ViewBag.LoggedInInstructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
     }
 }
