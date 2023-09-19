@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+<h2>User Details</h2>
+<hr />
+
+<div>
+    <strong>Email:</strong> @Model.Email
+</div>
+
+<div>
+    <strong>Roles:</strong>
+    <ul>
+        @foreach (var role in ViewData["Roles"] as List<string>)
+        {
+            <li>@role</li>
+        }
+    </ul>
+</div>
+
+<a asp-action="UserIndex">Back to List</a>

@@ -1,0 +1,35 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <form id="editUserForm" asp-action="UserEdit" method="post">
+            <h2>Edit user.</h2>
+            <hr />
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="form-floating mb-3">
+                <input type="email" name="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" value="@Model.Email" />
+                <label>Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label>Password</label>
+            </div>
+            <div class="form-check mb-3">
+                <input type="radio" name="selectedRoles" value="Admin" class="form-check-input" id="adminRadio" @(ViewData["Roles"] != null && ((IEnumerable<string>)ViewData["Roles"]).Contains("Admin") ? "checked" : "") />
+                <label class="form-check-label" for="adminRadio">Admin</label>
+            </div>
+            <div class="form-check mb-3">
+                <input type="radio" name="selectedRoles" value="Instructor" class="form-check-input" id="instructorRadio" @(ViewData["Roles"] != null && ((IEnumerable<string>)ViewData["Roles"]).Contains("Instructor") ? "checked" : "") />
+                <label class="form-check-label" for="instructorRadio">Instructor</label>
+            </div>
+            <div class="form-check mb-3">
+                <input type="radio" name="selectedRoles" value="Student" class="form-check-input" id="studentRadio" @(ViewData["Roles"] != null && ((IEnumerable<string>)ViewData["Roles"]).Contains("Student") ? "checked" : "") />
+                <label class="form-check-label" for="studentRadio">Student</label>
+            </div>
+
+            <button id="editUserSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

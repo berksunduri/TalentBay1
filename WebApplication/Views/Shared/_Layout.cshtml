@@ -49,6 +49,21 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Edit">Edit a Course</a>
                             </li>
                         }
+                        @if(User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserIndex">User List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UserCreate">Create User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="CourseIndex">Course List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="CourseCreate">Create Course</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

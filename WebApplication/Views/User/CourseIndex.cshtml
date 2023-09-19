@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TalentBay1.Models.Course>
+@using TalentBay1.Controllers
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    var loggedInInstructorId = ViewBag.LoggedInInstructorId as string;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CourseCreate">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstructorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstructorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageURL)
+                </td>
+                <td>
+                    <a asp-controller="User" asp-action="CourseEdit" asp-route-id="@item.CourseID">Edit</a> |
+                    <a asp-controller="User" asp-action="CourseDetails" asp-route-id="@item.CourseID">Details</a> |
+                    <a asp-controller="User" asp-action="CourseDelete" asp-route-id="@item.CourseID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
