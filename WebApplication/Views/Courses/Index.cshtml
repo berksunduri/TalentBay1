@@ -8,68 +8,30 @@
     var loggedInInstructorId = ViewBag.LoggedInInstructorId as string;
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Edit Your Courses</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InstructorID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnrollmentCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container-fluid">
+    <div class="row">
         @foreach (var item in Model)
         {
             // Only show items where the InstructorID matches the logged-in user's ID
             if (item.InstructorID == loggedInInstructorId)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InstructorID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EnrollmentCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImageURL)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.CourseID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CourseID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CourseID">Delete</a>
-                    </td>
-                </tr>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text">Category: @item.Category</p>
+                            <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
+                            <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.CourseID" class="btn btn-primary">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.CourseID" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
             }
         }
-    </tbody>
-</table>
+    </div>
+</div>

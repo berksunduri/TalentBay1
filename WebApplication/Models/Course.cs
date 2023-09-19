@@ -12,5 +12,9 @@ namespace TalentBay1.Models
         public string Category { get; set; }
         public int EnrollmentCount { get; set; }
         public string ImageURL { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Image")]
+        public IFormFile ImageFile { get; set; }
     }
 }

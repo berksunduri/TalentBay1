@@ -1,0 +1,14 @@
+﻿@model TalentBay1.Models.Course
+
+<h2>Enroll in Course</h2>
+
+<div>
+    <h3>@Model.Title</h3>
+    <p>@Model.Description</p>
+    <p>Category: @Model.Category</p>
+    <p>Enrollment Count: @Model.EnrollmentCount</p>
+
+    <form asp-action="Enroll" asp-route-courseId="@Model.CourseID" method="post">
+        <button type="submit" class="btn btn-primary">Enroll</button>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TalentBay1.Models.Course>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text">Category: @item.Category</p>
+                    <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
+                    <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
+                    <form asp-action="Enroll" method="post">
+                        <input type="hidden" name="courseId" value="@item.CourseID" />
+                        <button type="submit" class="btn btn-primary" @(ViewBag.EnrolledCourses.Contains(item.CourseID) ? "disabled" : "")>Enroll</button>
+                    </form>
+                    @if (ViewBag.EnrolledCourses.Contains(item.CourseID))
+                    {
+                        <p class="text-muted">You are already enrolled in this course.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

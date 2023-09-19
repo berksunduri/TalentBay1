@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -58,9 +59,36 @@ namespace TalentBay1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageURL")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageFile")] Course course)
         {
+            if (course.ImageFile != null && course.ImageFile.Length > 0)
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + course.ImageFile.FileName;
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadsFolder); // Ensure the directory exists
 
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await course.ImageFile.CopyToAsync(stream);
+                }
+
+                course.ImageURL = "/images/" + uniqueFileName; // Set the relative URL
+            }
+            else
+            {
+                course.ImageURL = "default-image.jpg";
+            }
+
+            // Manually clear the validation state for ImageURL
+            ModelState.Remove("ImageURL");
+
+            // Manually validate the ImageURL property
+            if (string.IsNullOrEmpty(course.ImageURL))
+            {
+                ModelState.AddModelError("ImageURL", "Image URL is required.");
+            }
             course.InstructorID = GetLoggedInInstructorId();
             if (ModelState.IsValid)
             {
@@ -68,8 +96,40 @@ namespace TalentBay1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // If there are errors, log them
+            foreach (var modelStateEntry in ModelState.Values)
+            {
+                foreach (var error in modelStateEntry.Errors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Validation Error:" + error.ErrorMessage);
+                }
+            }
+
             return View(course);
         }
+
+        private async Task<string> UploadImage(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadsFolder); // Ensure the directory exists
+
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return "/images/" + uniqueFileName; // Return the relative URL
+            }
+            return null; // Return null if file is null or empty
+        }
+
+
 
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -64,6 +64,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="CourseCreate">Create Course</a>
                             </li>
                         }
+                        @if (User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="BrowseCourses">Browse Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="EnrolledCourses">Your Courses</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

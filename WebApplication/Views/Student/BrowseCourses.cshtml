@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TalentBay1.Models.Course>
+@using TalentBay1.Controllers
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    var loggedInInstructorId = ViewBag.LoggedInInstructorId as string;
+}
+
+<h1 class="text-center">Available Courses</h1>
+
+<div class="container-fluid">
+    <!-- Search form -->
+    <form class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" id="searchTerm" placeholder="Search for courses">
+        </div>
+    </form>
+
+    <div class="row" id="courseResults">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">Category: @item.Category</p>
+                        <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
+                        <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
+                        <form asp-action="Enroll" method="post">
+                            <input type="hidden" name="courseId" value="@item.CourseID" />
+                            <button type="submit" class="btn btn-primary" @(ViewBag.EnrolledCourses.Contains(item.CourseID) ? "disabled" : "")>Enroll</button>
+                        </form>
+                        @if (ViewBag.EnrolledCourses.Contains(item.CourseID))
+                        {
+                            <p class="text-muted">You are already enrolled in this course.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        // Get all courses and filter based on search term
+        function filterCourses(searchTerm) {
+            const courses = document.querySelectorAll('.card');
+
+            courses.forEach(course => {
+                const title = course.querySelector('.card-title').innerText.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    course.style.display = 'block';
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchTerm').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            filterCourses(searchTerm);
+        });
+    </script>
+}
