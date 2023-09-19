@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TalentBay1.Models;
 
 namespace MyApplication.Data;
 
@@ -10,6 +12,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         : base(options)
     {
     }
+
+    public DbSet<Course> Courses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

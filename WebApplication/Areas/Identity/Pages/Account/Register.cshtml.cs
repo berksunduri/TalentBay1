@@ -70,6 +70,9 @@ namespace TalentBay1.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -114,6 +117,9 @@ namespace TalentBay1.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                var roleName = Input.Role == "Instructor" ? "Instructor" : "Student";
+                await _userManager.AddToRoleAsync(user, roleName);
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -140,7 +146,7 @@ namespace TalentBay1.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _signInManager.SignInAsync((IdentityUser)user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }
