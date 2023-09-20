@@ -97,6 +97,7 @@ namespace TalentBay1.Controllers
             }
 
             ModelState.Remove("Course");
+            ModelState.Remove("StudentAssignments");
 
             if (ModelState.IsValid)
             {
@@ -155,6 +156,7 @@ namespace TalentBay1.Controllers
             }
 
             ModelState.Remove("Course");
+            ModelState.Remove("StudentAssignments");
 
             if (ModelState.IsValid)
             {
