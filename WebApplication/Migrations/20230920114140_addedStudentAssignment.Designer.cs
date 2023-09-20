@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyApplication.Data;
 
@@ -11,9 +12,11 @@ using MyApplication.Data;
 namespace TalentBay1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920114140_addedStudentAssignment")]
+    partial class addedStudentAssignment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace TalentBay1.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.ToTable("Assignment", (string)null);
+                    b.ToTable("Assignment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -280,7 +283,7 @@ namespace TalentBay1.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentAssignments", (string)null);
+                    b.ToTable("StudentAssignments");
                 });
 
             modelBuilder.Entity("TalentBay1.Models.Course", b =>
@@ -316,7 +319,7 @@ namespace TalentBay1.Migrations
 
                     b.HasKey("CourseID");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("TalentBay1.Models.Enrollment", b =>
@@ -341,7 +344,7 @@ namespace TalentBay1.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.ToTable("Enrollments", (string)null);
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("Assignment", b =>

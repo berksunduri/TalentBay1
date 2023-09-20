@@ -217,6 +217,7 @@ namespace TalentBay1.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         private bool CourseExists(int id)
         {
           return (_context.Courses?.Any(e => e.CourseID == id)).GetValueOrDefault();

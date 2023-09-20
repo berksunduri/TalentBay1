@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,6 +15,9 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Course> Courses { get; set; }
     public DbSet<Enrollment> Enrollments { get; set; }
+    public DbSet<Assignment> Assignments { get; set; }
+
+    public DbSet<StudentAssignment> StudentAssignments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -23,4 +26,6 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    public DbSet<Assignment> Assignment { get; set; } = default!;
 }

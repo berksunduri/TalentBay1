@@ -16,5 +16,12 @@ namespace TalentBay1.Models
         [NotMapped]
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
+
+        public virtual ICollection<Assignment> Assignments { get; set; }
+
+        public Course()
+        {
+            Assignments = new List<Assignment>();
+        }
     }
 }

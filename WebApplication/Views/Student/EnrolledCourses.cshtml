@@ -20,6 +20,7 @@
                         <p class="card-text">Category: @item.Category</p>
                         <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
                         <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
+                        <a asp-action="Assignments" asp-route-id="@item.CourseID" class="btn btn-primary">Show Assignments</a>
                     </div>
                 </div>
             </div>

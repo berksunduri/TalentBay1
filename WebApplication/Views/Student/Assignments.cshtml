@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Assignment>
+
+@{
+    ViewData["Title"] = "Course Assignments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Assignments for the Course</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Due Date</th>
+                        <th>Is Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var assignment in Model)
+                    {
+                        <tr>
+                            <td>@assignment.Title</td>
+                            <td>@assignment.Description</td>
+                            <td>@assignment.DueDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <input type="checkbox" id="assignment-@assignment.AssignmentID" data-assignment-id="@assignment.AssignmentID" class="assignment-checkbox" @(assignment.IsCompleted ? "checked" : "") />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateProgressBar() {
+            var totalAssignments = document.querySelectorAll('.assignment-checkbox').length;
+            var completedAssignments = document.querySelectorAll('.assignment-checkbox:checked').length;
+
+            var progress = (completedAssignments / totalAssignments) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkboxes = document.querySelectorAll('.assignment-checkbox');
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    var assignmentId = this.dataset.assignmentId;
+                    var isCompleted = this.checked;
+
+                    // Send completion status to the server
+                    updateAssignmentCompletion(assignmentId, isCompleted);
+                    updateProgressBar();
+                });
+            });
+        });
+
+        function updateAssignmentCompletion(assignmentId, isCompleted) {
+            // Send AJAX request to update assignment completion status
+            // Modify the URL and request payload based on your server-side implementation
+            // Example using fetch API:
+            fetch(`/Student/UpdateAssignmentCompletion?assignmentId=${assignmentId}&isCompleted=${isCompleted}`, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+    </script>
+}
+
