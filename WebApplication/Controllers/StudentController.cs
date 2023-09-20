@@ -25,6 +25,25 @@ namespace TalentBay1.Controllers
             return View();
         }
 
+        // GET: Courses/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses
+                .FirstOrDefaultAsync(m => m.CourseID == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+
         public IActionResult BrowseCourses(string searchTerm)
         {
             var courses = _context.Courses.ToList();
