@@ -12,8 +12,8 @@ using MyApplication.Data;
 namespace TalentBay1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230920114140_addedStudentAssignment")]
-    partial class addedStudentAssignment
+    [Migration("20230923130259_EverythingWorksButEveryAssignmentisSame")]
+    partial class EverythingWorksButEveryAssignmentisSame
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,9 @@ namespace TalentBay1.Migrations
                     b.Property<int>("AssignmentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -412,7 +415,7 @@ namespace TalentBay1.Migrations
             modelBuilder.Entity("StudentAssignment", b =>
                 {
                     b.HasOne("Assignment", "Assignment")
-                        .WithMany()
+                        .WithMany("StudentAssignments")
                         .HasForeignKey("AssignmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -437,6 +440,11 @@ namespace TalentBay1.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("Assignment", b =>
+                {
+                    b.Navigation("StudentAssignments");
                 });
 
             modelBuilder.Entity("TalentBay1.Models.Course", b =>

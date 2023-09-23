@@ -14,9 +14,13 @@ public class StudentAssignment
 
     public int CourseId { get; set; }
 
+    // Completion status for this student
     public bool IsCompleted { get; set; }
 
     // Navigation properties
     public IdentityUser Student { get; set; } // ApplicationUser represents the Student
     public Assignment Assignment { get; set; }
 }
+
+
+

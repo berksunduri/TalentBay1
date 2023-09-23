@@ -40,18 +40,29 @@
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>
             </div>
+            <div id="progress-text" class="text-right mt-2">0/0</div>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
+        // Function to update the progress bar based on completed assignments
         function updateProgressBar() {
             var totalAssignments = document.querySelectorAll('.assignment-checkbox').length;
             var completedAssignments = document.querySelectorAll('.assignment-checkbox:checked').length;
 
             var progress = (completedAssignments / totalAssignments) * 100;
-            document.getElementById('progress-bar').style.width = progress + '%';
+            var progressBar = document.getElementById('progress-bar');
+            var progressText = document.getElementById('progress-text');
+
+            progressBar.style.width = progress + '%';
+
+            if (progress === 100) {
+                progressText.innerText = 'You are all up to date!';
+            } else {
+                progressText.innerText = `${completedAssignments}/${totalAssignments}`;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -64,15 +75,15 @@
 
                     // Send completion status to the server
                     updateAssignmentCompletion(assignmentId, isCompleted);
-                    updateProgressBar();
                 });
             });
+
+            // Load checkbox status and update progress bar on page load
+            loadCheckboxStatus();
         });
 
         function updateAssignmentCompletion(assignmentId, isCompleted) {
             // Send AJAX request to update assignment completion status
-            // Modify the URL and request payload based on your server-side implementation
-            // Example using fetch API:
             fetch(`/Student/UpdateAssignmentCompletion?assignmentId=${assignmentId}&isCompleted=${isCompleted}`, {
                 method: 'POST'
             })
@@ -80,10 +91,30 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
+                    // Update progress bar after successful completion status update
+                    updateProgressBar();
                 })
                 .catch(error => console.error('Error:', error));
         }
 
+        function loadCheckboxStatus() {
+            var checkboxes = document.querySelectorAll('.assignment-checkbox');
+
+            checkboxes.forEach(function (checkbox) {
+                var assignmentId = checkbox.dataset.assignmentId;
+
+                // Send AJAX request to fetch completion status for this assignment
+                fetch(`/Student/GetAssignmentCompletionStatus?assignmentId=${assignmentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Set the checkbox state based on the completion status
+                        checkbox.checked = data.isCompleted;
+
+                        // Update progress bar after setting checkbox state
+                        updateProgressBar();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        }
     </script>
 }
-

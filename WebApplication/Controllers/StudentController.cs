@@ -6,6 +6,7 @@ using TalentBay1.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TalentBay1.ViewModels;
+using TalentBay1.Migrations;
 
 namespace TalentBay1.Controllers
 {
@@ -104,6 +105,8 @@ namespace TalentBay1.Controllers
 
             return View(assignments);
         }
+
+
         public IActionResult MarkAssignmentComplete(int assignmentId)
         {
             var userId = _userManager.GetUserId(User);
@@ -112,36 +115,42 @@ namespace TalentBay1.Controllers
 
             if (assignment == null)
             {
-                // Assignment not found
-                return NotFound();
+                return NotFound(); // Assignment not found
             }
 
-            var courseId = assignment.CourseID;  // Assuming Assignment has a CourseId property
+            var courseId = assignment.CourseID;
 
             // Check if this assignment is already marked as completed for the user
-            var existingRecord = _context.StudentAssignments.FirstOrDefault(sa => sa.AssignmentId == assignmentId && sa.StudentId == userId);
+            var existingRecord = _context.StudentAssignments
+                .FirstOrDefault(sa => sa.AssignmentId == assignmentId && sa.StudentId == userId);
 
             if (existingRecord != null)
             {
-                // Assignment is already marked as completed
-                return RedirectToAction("Assignments", new { id = courseId });
+                // Assignment is already marked as completed, update the completion status
+                existingRecord.IsCompleted = true;
+            }
+            else
+            {
+                // Create a new StudentAssignment record
+                var studentAssignment = new StudentAssignment
+                {
+                    StudentId = userId,
+                    AssignmentId = assignmentId,
+                    CourseId = courseId,
+                    IsCompleted = true
+                };
+
+                _context.StudentAssignments.Add(studentAssignment);
             }
 
-            // Create a new StudentAssignment record
-            var studentAssignment = new StudentAssignment
-            {
-                StudentId = userId,
-                AssignmentId = assignmentId,
-                CourseId = courseId,  // Assign the course ID
-                IsCompleted = true
-                // Set other properties as needed
-            };
-
-            _context.StudentAssignments.Add(studentAssignment);
             _context.SaveChanges();
 
             return RedirectToAction("Assignments", new { id = courseId });
         }
+
+
+
+
 
         [HttpPost]
         public IActionResult UpdateAssignmentCompletion(int assignmentId, bool isCompleted)
@@ -167,6 +176,17 @@ namespace TalentBay1.Controllers
                 // Handle exceptions appropriately (log or return an error response)
                 return StatusCode(500, "An error occurred while updating assignment completion.");
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetAssignmentCompletionStatus(int assignmentId)
+        {
+            var assignment = _context.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentId);
+
+            if (assignment == null)
+                return NotFound();
+
+            return Json(new { isCompleted = assignment.IsCompleted });
         }
 
 
