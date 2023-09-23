@@ -4,7 +4,7 @@
 @inject UserManager<IdentityUser> UserManager
 @{
     var email = UserManager.GetUserName(User);
-    var username = email.Substring(0, email.IndexOf("@", StringComparison.Ordinal));
+    var username = email != null ? email.Substring(0, email.IndexOf("@", StringComparison.Ordinal)) : "User";
 }
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

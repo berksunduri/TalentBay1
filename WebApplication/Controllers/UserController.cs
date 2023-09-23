@@ -335,24 +335,37 @@ namespace TalentBay1.Controllers
             return RedirectToAction(nameof(CourseIndex));
         }
 
-        [HttpGet] // Allow GET requests
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CourseDetails(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.CourseID == id);
+
             if (course == null)
             {
                 return NotFound();
             }
 
-            return View(course);
+            // Retrieve enrollments for this course
+            var enrollments = await _context.Enrollments
+                .Include(e => e.User)
+                .Where(e => e.CourseID == id)
+                .ToListAsync();
+
+            // Pass both course and enrollments to the view
+            ViewData["Course"] = course;
+            ViewData["Enrollments"] = enrollments;
+
+            return View();
         }
+
+
 
 
         private bool CourseExists(int id)

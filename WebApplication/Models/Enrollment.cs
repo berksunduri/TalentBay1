@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace TalentBay1.Models
@@ -17,5 +18,7 @@ namespace TalentBay1.Models
         public DateTime EnrollmentDate { get; set; }
 
         public virtual Course Course { get; set; }
+
+        public IdentityUser User { get; set; }
     }
 }
