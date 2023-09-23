@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
 using TalentBay1.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace TalentBay1.Controllers
 {
@@ -372,6 +366,6 @@ namespace TalentBay1.Controllers
         {
             return _context.Courses.Any(e => e.CourseID == id);
         }
-    
+
     }
 }

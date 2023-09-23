@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
-using TalentBay1.Models;
+using System.Security.Claims;
 
 namespace TalentBay1.Controllers
 {
@@ -215,14 +210,14 @@ namespace TalentBay1.Controllers
             {
                 _context.Assignment.Remove(assignment);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AssignmentExists(int id)
         {
-          return (_context.Assignment?.Any(e => e.AssignmentID == id)).GetValueOrDefault();
+            return (_context.Assignment?.Any(e => e.AssignmentID == id)).GetValueOrDefault();
         }
 
         private void SetLoggedInInstructorIdInViewBag()

@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
 using System.Security.Claims;
 using TalentBay1.Models;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using TalentBay1.ViewModels;
-using TalentBay1.Migrations;
 
 namespace TalentBay1.Controllers
 {

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
-using TalentBay1.Models;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using TalentBay1.Models;
 
 namespace TalentBay1.Controllers
 {
@@ -73,13 +71,13 @@ namespace TalentBay1.Controllers
             _dbContext.Courses.Add(course);
             await _dbContext.SaveChangesAsync();
 
-                // set a sucess message
+            // set a sucess message
             ViewBag.SuccessMessage = "Course Created Successfully";
 
-                // clear form fields
+            // clear form fields
             ModelState.Clear();
 
-           
+
 
             return View();
         }
@@ -92,7 +90,7 @@ namespace TalentBay1.Controllers
             ViewBag.SuccessMessage = "Course updated successfully";
             return View();
         }
-            
+
         private string GetLoggedInInstructorId()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

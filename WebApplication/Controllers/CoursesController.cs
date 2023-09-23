@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
+using System.Security.Claims;
 using TalentBay1.Models;
 
 namespace TalentBay1.Controllers
@@ -25,7 +19,7 @@ namespace TalentBay1.Controllers
         public async Task<IActionResult> Index()
         {
             SetLoggedInInstructorIdInViewBag();
-            return _context.Courses != null ? 
+            return _context.Courses != null ?
                           View(await _context.Courses.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
         }
@@ -212,7 +206,7 @@ namespace TalentBay1.Controllers
             {
                 _context.Courses.Remove(course);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -220,7 +214,7 @@ namespace TalentBay1.Controllers
 
         private bool CourseExists(int id)
         {
-          return (_context.Courses?.Any(e => e.CourseID == id)).GetValueOrDefault();
+            return (_context.Courses?.Any(e => e.CourseID == id)).GetValueOrDefault();
         }
 
         private string GetLoggedInInstructorId()

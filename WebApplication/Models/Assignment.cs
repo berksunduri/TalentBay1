@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using TalentBay1.Models;
+﻿using TalentBay1.Models;
 
 public class Assignment
 {
