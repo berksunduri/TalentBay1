@@ -63,7 +63,8 @@
                 <td>
                     <a asp-controller="User" asp-action="CourseEdit" asp-route-id="@item.CourseID">Edit</a> |
                     <a asp-controller="User" asp-action="CourseDetails" asp-route-id="@item.CourseID">Details</a> |
-                    <a asp-controller="User" asp-action="CourseDelete" asp-route-id="@item.CourseID">Delete</a>
+                    <a asp-controller="User" asp-action="CourseDelete" asp-route-id="@item.CourseID">Delete</a> |
+                    <a asp-controller="User" asp-action="AssignmentCreate" asp-route-id="@item.CourseID">Add Assignment</a>
                 </td>
             </tr>
         }

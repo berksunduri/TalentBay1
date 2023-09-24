@@ -1,7 +1,7 @@
 ﻿@model TalentBay1.Models.Course
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "CourseDelete";
 }
 
 <h1>Delete</h1>
@@ -49,7 +49,7 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete">
+    <form asp-action="CourseDelete">
         <input type="hidden" asp-for="CourseID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="CourseIndex">Back to List</a>
