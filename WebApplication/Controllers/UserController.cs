@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyApplication.Data;
 using TalentBay1.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace TalentBay1.Controllers
 {
@@ -236,24 +231,74 @@ namespace TalentBay1.Controllers
 
         public IActionResult CourseCreate()
         {
+            var instructors = _userManager.GetUsersInRoleAsync("Instructor").Result;
+            ViewBag.Instructors = new SelectList(instructors, "Id", "Email");
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CourseCreate([Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageURL")] Course course)
+        public async Task<IActionResult> CourseCreate([Bind("CourseID,Title,Description,InstructorID,Category,EnrollmentCount,ImageFile")] Course course)
         {
+            if (course.ImageFile != null && course.ImageFile.Length > 0)
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + course.ImageFile.FileName;
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadsFolder); // Ensure the directory exists
+
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await course.ImageFile.CopyToAsync(stream);
+                }
+
+                course.ImageURL = "/images/" + uniqueFileName; // Set the relative URL
+            }
+            else
+            {
+                course.ImageURL = "default-image.jpg";
+            }
+
+            // Manually clear the validation state for ImageURL
+            ModelState.Remove("ImageURL");
+
+            // Manually validate the ImageURL property
+            if (string.IsNullOrEmpty(course.ImageURL))
+            {
+                ModelState.AddModelError("ImageURL", "Image URL is required.");
+            }
+               
             if (ModelState.IsValid)
             {
-                // Save the course to the database
                 _context.Add(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CourseIndex));
+                return RedirectToAction("CourseIndex", "User");
             }
-            return View(course);
+
+            return RedirectToAction("CourseIndex", "User");
         }
 
+        private async Task<string> UploadImage(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadsFolder); // Ensure the directory exists
+
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return "/images/" + uniqueFileName; // Return the relative URL
+            }
+            return null; // Return null if file is null or empty
+        }
         public async Task<IActionResult> CourseEdit(int? id)
         {
             if (id == null)
@@ -279,6 +324,7 @@ namespace TalentBay1.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("ImageFile");
             if (ModelState.IsValid)
             {
                 try
@@ -297,9 +343,9 @@ namespace TalentBay1.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CourseIndex));
+                return RedirectToAction("CourseIndex", "User");
             }
-            return View(course);
+            return RedirectToAction("CourseIndex", "User");
         }
 
         public async Task<IActionResult> CourseDelete(int? id)
@@ -335,30 +381,113 @@ namespace TalentBay1.Controllers
             return RedirectToAction(nameof(CourseIndex));
         }
 
-        [HttpGet] // Allow GET requests
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CourseDetails(int? id)
         {
-            if (id == null || _context.Courses == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.CourseID == id);
+
             if (course == null)
             {
                 return NotFound();
             }
 
-            return View(course);
+            // Retrieve enrollments for this course
+            var enrollments = await _context.Enrollments
+                .Include(e => e.User)
+                .Where(e => e.CourseID == id)
+                .ToListAsync();
+
+            // Get all registered users
+            var allUsers = await _context.Users.ToListAsync();
+
+            // Get the IDs of users already enrolled in the course
+            var enrolledUserIds = enrollments.Select(e => e.UserId);
+
+            // Filter out users who are already enrolled in the course
+            var notEnrolledUsers = allUsers.Where(user => !enrolledUserIds.Contains(user.Id)).ToList();
+
+            // Pass both course, enrollments, and notEnrolledUsers to the view
+            ViewData["Course"] = course;
+            ViewData["Enrollments"] = enrollments;
+            ViewBag.NotEnrolledUsers = notEnrolledUsers;
+
+            return View();
         }
+
+
+
+        // GET: Assignments/Create
+        public IActionResult AssignmentCreate()
+        {
+            // Get all courses
+            var allCourses = _context.Courses.Select(course => new SelectListItem { Value = course.CourseID.ToString(), Text = course.Title }).ToList();
+
+            // Create a SelectList for the dropdown
+            SelectList courseSelectList = new SelectList(allCourses, "Value", "Text");
+
+            // Set the ViewBag for the dropdown
+            ViewBag.CourseID = courseSelectList;
+
+            return View();
+        }
+
+
+        // POST: Assignments/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignmentCreate([Bind("AssignmentID,CourseID,Title,Description,DueDate")] Assignment assignment)
+        {
+            // Retrieve the associated course including assignments
+            var course = _context.Courses.Include(c => c.Assignments).FirstOrDefault(c => c.CourseID == assignment.CourseID);
+
+            // Ensure that the CourseID is valid and the course is found
+            if (course == null || !_context.Courses.Any(c => c.CourseID == assignment.CourseID))
+            {
+                ModelState.AddModelError("CourseID", "Invalid CourseID");
+            }
+            else
+            {
+                // Set the Course property
+                assignment.Course = course;
+            }
+
+            // Manually validate the Course property
+            if (assignment.Course == null)
+            {
+                ModelState.AddModelError("Course", "Invalid Course");
+            }
+
+            ModelState.Remove("Course");
+            ModelState.Remove("StudentAssignments");
+
+              if (ModelState.IsValid)
+            {
+                _context.Add(assignment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("CourseIndex", "User"); ;
+            }
+
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID", assignment.CourseID);
+            return View(assignment);
+        }
+
+
+
 
 
         private bool CourseExists(int id)
         {
             return _context.Courses.Any(e => e.CourseID == id);
         }
-    
+
     }
 }

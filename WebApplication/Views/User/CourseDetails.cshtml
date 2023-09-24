@@ -1,4 +1,6 @@
-﻿@model TalentBay1.Models.Course
+﻿@model Course
+@using Microsoft.AspNetCore.Identity
+@using TalentBay1.Models
 
 @{
     ViewData["Title"] = "CourseDetails";
@@ -48,6 +50,37 @@
         </dd>
     </dl>
 </div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="mt-3">
+        <h4>Manage Enrollments</h4>
+        <p>Enroll or remove users from this course:</p>
+        <form asp-controller="User" asp-action="EnrollUser" method="post">
+            <input type="hidden" name="courseId" value="@((ViewData["Course"] as Course).CourseID)" />
+            <select name="userId" class="form-control">
+                @foreach (var user in ViewBag.NotEnrolledUsers)
+                {
+                    <option value="@user.Id">@user.Email</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Enroll User</button>
+        </form>
+        <form asp-controller="User" asp-action="RemoveEnrollment" method="post">
+            <input type="hidden" name="courseId" value="@((ViewData["Course"] as Course).CourseID)" />
+            <select name="userId" class="form-control">
+                @foreach (var enrollment in ViewData["Enrollments"] as List<Enrollment>)
+                {
+                    <option value="@enrollment.UserId">@enrollment.User.Email</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-danger mt-2">Remove Enrollment</button>
+        </form>
+    </div>
+}
+
+
+
 <div>
     <a asp-action="CourseEdit" asp-route-id="@Model?.CourseID">Edit</a> |
     <a asp-action="CourseIndex">Back to List</a>
