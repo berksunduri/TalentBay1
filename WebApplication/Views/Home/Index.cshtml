@@ -7,10 +7,15 @@
     ViewData["Title"] = "Home Page";
 }
 
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 animated-text">Welcome</h1>
 </div>
+
+
 
 @if (User.IsInRole("Admin"))
 {
@@ -38,24 +43,25 @@
             </div>
             <div class="carousel-item" style="min-height: 300px;">
                 <img class="position-relative w-100" src="~/assets/img/carousel-2.jpg" style="min-height: 300px; object-fit: cover;">
-                <div class="carousel-caption d-flex align-items-center justify-content-center">
-                    <div class="p-5" style="width: 100%; max-width: 900px;">
-                        <h5 class="text-white text-uppercase mb-md-3">Best Online Courses</h5>
-                        <h1 class="display-3 text-white mb-md-4">Best Online Learning Platform</h1>
-                        <a href="" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Learn More</a>
+                <div class="carousel-caption text-center">
+                    <div class="carousel-text">
+                        <h5 class="text-uppercase mb-3">Discover the Best Online Courses</h5>
+                        <h1 class="display-4 mb-4">Unlock Your Learning Potential</h1>
+                        <a href="#" class="btn btn-primary btn-lg font-weight-bold">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="carousel-item" style="min-height: 300px;">
                 <img class="position-relative w-100" src="~/assets/img/carousel-3.jpg" style="min-height: 300px; object-fit: cover;">
-                <div class="carousel-caption d-flex align-items-center justify-content-center">
-                    <div class="p-5" style="width: 100%; max-width: 900px;">
-                        <h5 class="text-white text-uppercase mb-md-3">Best Online Courses</h5>
-                        <h1 class="display-3 text-white mb-md-4">New Way To Learn From Home</h1>
-                        <a href="" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Learn More</a>
+                <div class="carousel-caption text-center">
+                    <div class="carousel-text">
+                        <h5 class="text-uppercase mb-3">Explore a World of Knowledge</h5>
+                        <h1 class="display-4 mb-4">Empowering Learning from Home</h1>
+                        <a href="#" class="btn btn-primary btn-lg font-weight-bold">Learn More</a>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -287,28 +293,26 @@
 <div class="container-fluid bg-registration py-5" style="margin: 90px 0;">
     <div class="container py-5">
         <div class="row align-items-center">
-            <div class="col-lg-7 mb-5 mb-lg-0">
+            <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="mb-4">
-                    <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Need Any Courses</h5>
+                    <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px; color: orange;">Need Any Courses</h5>
                     <h1 class="text-white">30% Off For New Students</h1>
                 </div>
                 <p class="text-white">
-                    Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo dolor lorem ipsum ut sed eos,
-                    ipsum et dolor kasd sit ea justo. Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est
-                    dolor
+                    Courses are purchased at a 30% discount for new student registrations.
                 </p>
                 <ul class="list-inline text-white m-0">
-                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Labore eos amet dolor amet diam</li>
-                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Etsea et sit dolor amet ipsum</li>
-                    <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Diam dolor diam elitripsum vero.</li>
+                    <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Training from first level to advanced level</li>
+                    <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Online communication with instructors</li>
+                    <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Reinforcement of courses through homework method</li>
                 </ul>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="card border-0">
                     <div class="card-header bg-light text-center p-4">
-                        <h1 class="m-0">Sign Up Now</h1>
+                        <h1 class="m-0 text-primary">Sign Up Now</h1>
                     </div>
-                    <div class="card-body rounded-bottom bg-primary p-5">
+                    <div class="card-body rounded-bottom bg-white p-5">
                         <form>
                             <div class="form-group">
                                 <input type="text" class="form-control border-0 p-4" placeholder="Your name" required="required" />
@@ -319,13 +323,15 @@
                             <div class="form-group">
                                 <select class="custom-select border-0 px-4" style="height: 47px;">
                                     <option selected>Select a course</option>
-                                    <option value="1">Course 1</option>
-                                    <option value="2">Course 1</option>
-                                    <option value="3">Course 1</option>
+                                    <option value="1">Web Design</option>
+                                    <option value="2">Apps Design</option>
+                                    <option value="3">Marketing</option>
+                                    <option value="4">Reasearch</option>
+                                    <option value="4">SEO</option>
                                 </select>
                             </div>
                             <div>
-                                <button class="btn btn-dark btn-block border-0 py-3" type="submit">Sign Up Now</button>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Sign Up Now</button>
                             </div>
                         </form>
                     </div>
@@ -486,4 +492,5 @@
         </div>
     </div>
 </div>
+
 <!-- Blog End -->
