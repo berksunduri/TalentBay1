@@ -20,3 +20,650 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+navbar-brand {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.navbar-brand .highlighted-letter {
+    color: #FFA500;
+}
+
+.navbar-brand:hover {
+    background-color: #FFDAB9; 
+    color: #FFA500; 
+}
+
+.navbar-brand:hover .highlighted-letter {
+    color: #FFA500;
+}
+
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    margin-right: 20px; 
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333; 
+    font-weight: bold;
+    transition: color 0.3s;
+    border-bottom: 2px solid transparent;
+}
+.nav-link:hover {
+    color: #FF6600;
+    border-bottom: 2px solid #FF6600;
+
+}
+
+/* Apply styles to the first container */
+.container-fluid.bg-dark.text-white.py-5.px-sm-3.px-lg-5 {
+    margin-top: 90px;
+}
+
+.container-fluid.bg-dark.text-white.border-top.py-4.px-sm-3.px-md-5 {
+    border-color: rgba(256, 256, 256, 0.1) !important;
+}
+
+/* Apply styles to the first column */
+.col-lg-7.col-md-12 {
+    padding: 0;
+}
+
+/* Apply styles to the "Get In Touch" section */
+.text-primary.text-uppercase.mb-4 {
+    letter-spacing: 5px;
+    color: orange;
+}
+
+.d-flex.justify-content-start {
+    margin-top: 1rem;
+}
+
+/* Apply styles to the social media icons */
+.btn.btn-outline-light.btn-square {
+    margin-right: 0.5rem;
+}
+
+/* Apply styles to the second column */
+.col-lg-5.col-md-12.mb-5 {
+    padding: 0;
+}
+
+
+/* Apply styles to the "Newsletter" section */
+.text-primary.text-uppercase.mb-4 {
+    letter-spacing: 5px;
+    color: orange;
+}
+
+.form-control.border-light {
+    padding: 1rem; /* Adjust the padding values as needed */
+    height: auto !important; /* Set the input field height to auto */
+}
+
+/* Apply styles to the "Sign Up" button */
+.btn.btn-primary.px-4 {
+    padding: 1rem;
+    background-color: #F05A28;
+    border-color: orange;
+    height: auto
+}
+
+.btn.btn-primary.px-4:hover {
+    background-color: #FFA500;
+    border-color: #FFA500;
+}
+
+/* Apply styles to the footer */
+.col-lg-6.text-center.text-md-left.mb-3.mb-md-0 {
+    text-align: left;
+}
+
+.col-lg-6.text-center.text-md-right {
+    text-align: right;
+}
+
+.nav.d-inline-flex {
+    list-style-type: none;
+}
+
+.nav-item {
+    margin-right: 1rem;
+}
+
+.nav-link.text-white.py-0 {
+    text-decoration: none;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .col-md-6.mb-5 {
+        margin-bottom: 2rem;
+    }
+}
+
+/* styles.css */
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Header Styles */
+.display-4.animated-text {
+    font-size: 2.5rem;
+    color: #007BFF;
+}
+
+.lead {
+    color: #333;
+    font-size: 1.2rem;
+}
+
+    .lead a {
+        color: #007BFF;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+/* Admin Greeting Styles */
+h1 {
+    color: #007BFF;
+    font-size: 2rem;
+    margin-top: 30px;
+}
+
+/* Carousel Styles */
+.carousel-item {
+    min-height: 300px;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+    .carousel-caption h5 {
+        color: #fff;
+        font-size: 1.5rem;
+    }
+
+    .carousel-caption h1 {
+        color: #fff;
+        font-size: 2.5rem;
+    }
+
+    .carousel-caption a.btn {
+        background-color: #007BFF;
+        color: #fff;
+        font-weight: bold;
+    }
+
+/* About Section Styles */
+.bg-about {
+    background-color: #fff;
+}
+
+    .bg-about h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+/* Category Section Styles */
+.bg-category {
+    background-color: #f5f5f5;
+}
+
+    .bg-category h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+.cat-item {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+    .cat-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .cat-item h4 {
+        color: #007BFF;
+        font-size: 1.25rem;
+        font-weight: medium;
+    }
+
+    .cat-item span {
+        color: #555;
+    }
+
+/* Courses Section Styles */
+.bg-courses {
+    background-color: #fff;
+}
+
+    .bg-courses h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+.rounded.overflow-hidden {
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+    .rounded.overflow-hidden img {
+        max-width: 100%;
+        height: auto;
+    }
+
+.bg-secondary.p-4 {
+    background-color: #f5f5f5;
+    padding: 1rem;
+}
+
+    .bg-secondary.p-4 a {
+        color: #007BFF;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+.border-top {
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+}
+
+/* Registration Section Styles */
+.bg-registration {
+    background-image: url('@Url.Content("~/assets/img/page-header.jpg")'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+.registration-content {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.85); /* Adjust the background color and opacity */
+    padding: 90px 0;
+}
+.bg-registration h1 {
+    font-size: 2.5rem;
+
+}
+.bg-registration p {
+    font-size: 1.2rem;
+
+}
+
+.btn-dark {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Team Section Styles */
+.bg-team {
+    background-color: #f5f5f5;
+}
+
+    .bg-team h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+.team-item {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+    .team-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .team-item .team-social .btn {
+        color: #007BFF;
+        margin: 0 5px;
+    }
+
+/* Testimonial Section Styles */
+.bg-testimonial {
+    background-color: #f5f5f5;
+}
+
+    .bg-testimonial h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+.owl-carousel .item {
+    text-align: center;
+    padding: 20px;
+}
+
+.owl-carousel .fa-quote-left {
+    font-size: 3rem;
+    color: #007BFF;
+}
+
+.owl-carousel h4 {
+    font-weight: normal;
+    margin-bottom: 1rem;
+}
+
+.owl-carousel img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+}
+
+/* Blog Section Styles */
+.bg-blog {
+    background-color: #fff;
+}
+
+    .bg-blog h1 {
+        color: #007BFF;
+        font-size: 2rem;
+    }
+
+.blog-item {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+    .blog-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .blog-item h5 {
+        color: #fff;
+        font-size: 1.25rem;
+    }
+
+    .blog-item p {
+        color: #007BFF;
+        font-size: 1rem;
+    }
+
+.bg-registration {
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Welcome text */
+
+.display-4 animated-text{
+    color: wheat;
+}
+
+/* Define the container style */
+.text-center {
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeInAndDisappear {
+    0% {
+        opacity: 0; /* Start with opacity 0 (hidden) */
+    }
+
+    50% {
+        opacity: 1; /* Quickly fade in to full opacity */
+    }
+
+    100% {
+        opacity: 0; /* End with opacity 0 (hidden) */
+        display: none; /* Hide the element completely */
+    }
+}
+
+/* Style the animated text */
+.text-center h1.display-4.animated-text {
+    font-size: 36px;
+    position: relative;
+    z-index: 1; /* Ensure text is above the background */
+    animation: fadeInAndDisappear 2s ease-in-out forwards;
+}
+
+/* Create the gradient animation */
+ /* Style the animated text */
+.text-center h1.display-4.animated-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, orange 50%, transparent 100%);
+    animation: slideBg 2s ease-in-out;
+}
+
+/* Define the keyframes animation for the gradient */
+@keyframes slideBg {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+
+
+
+.nav-link.text-primary {
+    border: 1px solid #ccc; /* Adjust the color and thickness as needed */
+    padding: 8px 12px; /* Add some padding to make the border visible */
+    border-radius: 4px; /* Add rounded corners if desired */
+}
+
+/* Style for the "Logout" button */
+.nav-item.btn btn-default btn-sm {
+    border: 1px solid #ccc; /* Adjust the color and thickness as needed */
+    border-radius: 4px; /* Add rounded corners if desired */
+}
+
+#register {
+    color: #333; /* Text color */
+    text-decoration: none; /* Remove underlines from links */
+    padding: 8px 16px; /* Adjust padding as needed */
+    border: 2px solid orange; /* Add a border */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+    /* Center text vertically and horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #register:hover {
+        background-color: orange; /* Background color on hover */
+        color: #fff; /* Text color on hover */
+        text-decoration: none; /* Remove underlines on hover */
+    }
+
+/*Teachers section*/
+
+/* Team Title */
+.team-title {
+    color: #007BFF;
+    letter-spacing: 5px;
+}
+
+/* Team Heading */
+.team-heading {
+    font-size: 36px;
+}
+
+/* Team Item */
+.team-item {
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .team-item:hover {
+        transform: translateY(-5px);
+    }
+
+/* Team Image */
+.team-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Team Social Icons */
+.team-social a {
+    font-size: 18px;
+    margin: 0 5px;
+    color: #007BFF;
+}
+
+/* Team Member Name */
+.team-item h5 {
+    color: #333;
+    font-size: 20px;
+}
+
+/* Team Member Role */
+.team-role {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #666;
+}
+
+/* Background Color of Team Item */
+.bg-secondary {
+    background-color: #f8f9fa;
+}
+
+/* Container Padding */
+.bg-secondary {
+    background-color: #f8f9fa;
+    padding: 10px; /* Add padding to create consistent box size */
+    min-height: 160px; /* Set a minimum height for all boxes */
+}
+
+.container.pb-3 {
+    padding-bottom: 30px;
+}
+
+/* Title "Teachers" */
+.text-primary.text-uppercase {
+    font-size: 24px; /* Adjust the font size as needed */
+    letter-spacing: 5px;
+}
+
+/* Title "Meet Our Teachers" */
+h1 {
+    font-size: 36px; /* Adjust the font size as needed */
+    color: #333; /* Change the text color as desired */
+    margin-top: 10px; /* Add margin to separate it from the previous title */
+}
+
+
+/* Courses section styles */
+.container-fluid.py-5 {
+    background-color: #f8f8f8;
+}
+
+.text-center.mb-5 h1 {
+    font-size: 2.5rem;
+}
+
+.rounded.overflow-hidden {
+    background-color: #fff;
+    color: #ffffff; /* Changed text color inside containers to white */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .rounded.overflow-hidden:hover {
+        transform: translateY(-5px);
+    }
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bg-secondary.p-4 {
+    padding: 20px;
+}
+
+.d-flex.mb-3 {
+    margin-bottom: 10px;
+}
+
+.d-flex span {
+    font-size: 14px;
+}
+
+.course-title a {
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+    .course-title a:hover {
+        color: #007bff;
+    }
+
+.course-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #ffffff; /* Changed text color inside containers to white */
+}
+
+    .course-meta .course-price {
+        color: #ffffff; /* Changed text color inside containers to white */
+        font-weight: 600;
+    }
+
+/* Add more styles as needed */
+
