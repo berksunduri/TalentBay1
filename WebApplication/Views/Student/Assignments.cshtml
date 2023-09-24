@@ -5,37 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Assignments for the Course</h1>
+<h1 class="text-center mb-4">Assignments for the Course</h1>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                        <th>Is Completed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var assignment in Model)
-                    {
-                        <tr>
-                            <td>@assignment.Title</td>
-                            <td>@assignment.Description</td>
-                            <td>@assignment.DueDate.ToString("yyyy-MM-dd")</td>
-                            <td>
-                                <input type="checkbox" id="assignment-@assignment.AssignmentID" data-assignment-id="@assignment.AssignmentID" class="assignment-checkbox" @(assignment.IsCompleted ? "checked" : "") />
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+        @foreach (var assignment in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@assignment.Title</h5>
+                        <p class="card-text">@assignment.Description</p>
+                        <p class="card-text"><strong>Due Date:</strong> @assignment.DueDate.ToString("yyyy-MM-dd")</p>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input assignment-checkbox" id="assignment-@assignment.AssignmentID" data-assignment-id="@assignment.AssignmentID" @(assignment.IsCompleted ? "checked" : "") />
+                            <label class="form-check-label" for="assignment-@assignment.AssignmentID">Complete</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-md-12">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>

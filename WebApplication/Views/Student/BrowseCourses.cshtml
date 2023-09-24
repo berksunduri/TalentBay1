@@ -11,44 +11,97 @@
 <h1 class="text-center">Available Courses</h1>
 
 <div class="container-fluid">
-    <!-- Search form -->
-    <form class="mb-3">
-        <div class="input-group">
-            <input type="text" class="form-control" id="searchTerm" placeholder="Search for courses">
-        </div>
-    </form>
-
-    <div class="row" id="courseResults">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Title</h5>
-                        <p class="card-text">@item.Description</p>
-                        <p class="card-text">Category: @item.Category</p>
-                        <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
-                        <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
-                        <form asp-action="Enroll" method="post">
-                            <input type="hidden" name="courseId" value="@item.CourseID" />
-                            <button type="submit" class="btn btn-primary" @(ViewBag.EnrolledCourses.Contains(item.CourseID) ? "disabled" : "")>Enroll</button>
-                        </form>
-                        @if (ViewBag.EnrolledCourses.Contains(item.CourseID))
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filter by Category</h5>
+                    <form id="categoryFilterForm">
+                        @foreach (var category in Model.Select(c => c.Category).Distinct())
                         {
-                            <p class="text-muted">You are already enrolled in this course.</p>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input category-radio" name="category" value="@category" id="category-@category">
+                                <label class="form-check-label" for="category-@category">@category</label>
+                            </div>
                         }
-                    </div>
+                    </form>
                 </div>
             </div>
-        }
+        </div>
+        <div class="col-md-9">
+            <!-- Search form -->
+            <form class="mb-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchTerm" placeholder="Search for courses">
+                </div>
+            </form>
+
+            <div class="row" id="courseResults">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title</h5>
+                                <p class="card-text">@item.Description</p>
+                                <p class="card-text" data-category="@item.Category">Category: @item.Category</p>
+                                <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
+                                <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
+                                <form asp-action="Enroll" method="post">
+                                    <input type="hidden" name="courseId" value="@item.CourseID" />
+                                    <button type="submit" class="btn btn-primary" @(ViewBag.EnrolledCourses.Contains(item.CourseID) ? "disabled" : "")>Enroll</button>
+                                </form>
+                                @if (ViewBag.EnrolledCourses.Contains(item.CourseID))
+                                {
+                                    <p class="text-muted">You are already enrolled in this course.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
-
-
 @section scripts {
     <script>
+        // Update course display based on selected category and search term
+        function updateCourseDisplay() {
+            const selectedCategory = document.querySelector('.category-radio:checked');
+            const selectedCategoryValue = selectedCategory ? selectedCategory.value.toLowerCase() : '';
+
+            const courses = document.querySelectorAll('.card');
+
+            courses.forEach(course => {
+                const category = course.querySelector('.card-text[data-category]').getAttribute('data-category').toLowerCase();
+                const title = course.querySelector('.card-title').innerText.toLowerCase();
+
+                const categoryMatches = selectedCategoryValue === '' || selectedCategoryValue === category;
+                const titleMatches = title.includes(searchTerm);
+
+                if (categoryMatches && titleMatches) {
+                    course.style.display = 'block';
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        }
+
+        // Handle category radio button changes
+        document.querySelectorAll('.category-radio').forEach(radio => {
+            radio.addEventListener('change', () => {
+                updateCourseDisplay();
+            });
+        });
+
+        // Handle search term input
+        document.getElementById('searchTerm').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            filterCourses(searchTerm);
+        });
+
         // Get all courses and filter based on search term
         function filterCourses(searchTerm) {
             const courses = document.querySelectorAll('.card');
@@ -62,10 +115,5 @@
                 }
             });
         }
-
-        document.getElementById('searchTerm').addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase();
-            filterCourses(searchTerm);
-        });
     </script>
 }
