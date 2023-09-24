@@ -404,12 +404,23 @@ namespace TalentBay1.Controllers
                 .Where(e => e.CourseID == id)
                 .ToListAsync();
 
-            // Pass both course and enrollments to the view
+            // Get all registered users
+            var allUsers = await _context.Users.ToListAsync();
+
+            // Get the IDs of users already enrolled in the course
+            var enrolledUserIds = enrollments.Select(e => e.UserId);
+
+            // Filter out users who are already enrolled in the course
+            var notEnrolledUsers = allUsers.Where(user => !enrolledUserIds.Contains(user.Id)).ToList();
+
+            // Pass both course, enrollments, and notEnrolledUsers to the view
             ViewData["Course"] = course;
             ViewData["Enrollments"] = enrollments;
+            ViewBag.NotEnrolledUsers = notEnrolledUsers;
 
             return View();
         }
+
 
 
         // GET: Assignments/Create
