@@ -19,7 +19,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
+    
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -31,9 +31,9 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <span style="font-family: 'Arial', sans-serif; font-weight: bold; font-size: 24px; color: #000000; text-transform: uppercase;">E<span style="color: orange;">C</span>OURSES</span>
-
+                    <img src="~/assets/img/2.png" alt="TalentBay Logo" width="200" height="150" />
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,12 +42,6 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Courses">Courses</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Teachers">Teachers</a>
@@ -135,12 +129,12 @@
                 </div>
                 <div class="col-lg-5 col-md-12 mb-5">
                     <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px; color: orange;">Newsletter</h5>
-                    <p>Stay informed about relevant developments, news and campaign notifications</p>
+                    <p>Stay informed about relevant developments, news, and campaign notifications</p>
                     <div class="w-100">
                         <div class="input-group">
                             <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
                             <div class="input-group-append">
-                                <button class="btn btn-primary px-4" style="padding: 30px;">Sign Up</button>
+                                <button class="btn btn-primary px-4" style="padding: 30px; background-color: orange;">Sign Up</button>
                             </div>
                         </div>
                     </div>
@@ -160,13 +154,13 @@
                             <a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white py-0" href="#">Terms</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="">Terms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white py-0" href="#">FAQs</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="">FAQs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white py-0" href="#">Help</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="">Help</a>
                         </li>
                     </ul>
                 </div>
@@ -174,7 +168,7 @@
         </div>
 
         <div class="container">
-            &copy; 2023 - ECOURSES
+            &copy; 2023 - TalentBay
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -4,34 +4,10 @@
 @inject UserManager<IdentityUser> UserManager
 @{
     var email = UserManager.GetUserName(User);
-<<<<<<< Updated upstream
     var username = email != null ? email.Substring(0, email.IndexOf("@", StringComparison.Ordinal)) : "User";
 }
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @username!</a>
-        </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
-=======
-    var username = email?.Substring(0, email.IndexOf("@", StringComparison.Ordinal));
-}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -40,12 +16,16 @@ else
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="btn btn-default btn-sm">
-                    <i class="fas fa-sign-out-alt"></i> <!-- Font Awesome logout icon -->
-                    <strong>Log out</strong> <!-- Make the text bolder -->
+
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0" style="display: flex; align-items: center;">
+                    <i class="fas fa-sign-out-alt" style="color: orange;"></i>
+                    <span style="margin-left: 5px;">Logout</span>
                 </button>
             </form>
         </li>
+
+
+
     }
     else
     {
@@ -57,4 +37,4 @@ else
         </li>
     }
 </ul>
->>>>>>> Stashed changes
+

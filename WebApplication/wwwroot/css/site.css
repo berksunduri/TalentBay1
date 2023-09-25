@@ -33,15 +33,6 @@ navbar-brand {
     color: #FFA500;
 }
 
-.navbar-brand:hover {
-    background-color: #FFDAB9; 
-    color: #FFA500; 
-}
-
-.navbar-brand:hover .highlighted-letter {
-    color: #FFA500;
-}
-
 
 .navbar-nav {
     display: flex;
@@ -112,18 +103,6 @@ navbar-brand {
     height: auto !important; /* Set the input field height to auto */
 }
 
-/* Apply styles to the "Sign Up" button */
-.btn.btn-primary.px-4 {
-    padding: 1rem;
-    background-color: #F05A28;
-    border-color: orange;
-    height: auto
-}
-
-.btn.btn-primary.px-4:hover {
-    background-color: #FFA500;
-    border-color: #FFA500;
-}
 
 /* Apply styles to the footer */
 .col-lg-6.text-center.text-md-left.mb-3.mb-md-0 {
@@ -170,7 +149,15 @@ body {
 /* Header Styles */
 .display-4.animated-text {
     font-size: 2.5rem;
+<<<<<<< Updated upstream
     color: #007BFF;
+=======
+<<<<<<< Updated upstream
+    color: #FF6600;
+=======
+    color: black;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }
 
 .lead {
@@ -264,72 +251,62 @@ h1 {
     }
 
 /* Courses Section Styles */
-.bg-courses {
-    background-color: #fff;
+/* Courses Start */
+
+.text-center.mb-5 h5.text-primary {
+    letter-spacing: 5px;
 }
 
-    .bg-courses h1 {
-        color: #007BFF;
-        font-size: 2rem;
-    }
+h1 {
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+.col-lg-4.col-md-6.mb-4 {
+    margin-bottom: 15px;
+    max-width: 100%;
+}
 
 .rounded.overflow-hidden {
     border: 1px solid #ccc;
-    background-color: #fff;
+    transition: transform 0.2s;
+    height: 100%;
+    box-sizing: border-box;
 }
 
-    .rounded.overflow-hidden img {
-        max-width: 100%;
-        height: auto;
+    .rounded.overflow-hidden:hover {
+        transform: scale(1.02);
     }
+
+img.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
 
 .bg-secondary.p-4 {
-    background-color: #f5f5f5;
-    padding: 1rem;
+    background-color: #f5f5f5; /* Light gray background */
+    color: white;
+    height: 100%;
+    box-sizing: border-box;
 }
 
-    .bg-secondary.p-4 a {
-        color: #007BFF;
-        font-weight: bold;
-        text-decoration: none;
-    }
 
-.border-top {
+a.h5 {
+    color: white; /* white color for links */
+    text-decoration: none;
+}
+
+.border-top.mt-4.pt-4 {
     border-top: 1px solid #ccc;
-    padding-top: 1rem;
+    margin-top: 20px;
+    padding-top: 15px;
 }
 
-/* Registration Section Styles */
-.bg-registration {
-    background-image: url('@Url.Content("~/assets/img/page-header.jpg")'); /* Replace with your image URL */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-    overflow: hidden;
+.d-flex.justify-content-between h6.m-0 i.fa {
+    color: #FFA500; /* Orange color for symbols */
 }
 
-.registration-content {
-    position: relative;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.85); /* Adjust the background color and opacity */
-    padding: 90px 0;
-}
-.bg-registration h1 {
-    font-size: 2.5rem;
 
-}
-.bg-registration p {
-    font-size: 1.2rem;
-
-}
-
-.btn-dark {
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-}
 
 /* Team Section Styles */
 .bg-team {
@@ -420,18 +397,8 @@ h1 {
         font-size: 1rem;
     }
 
-.bg-registration {
-    background-size: cover;
-    background-position: center center;
-    min-height: 100vh;
-    position: relative;
-}
 
 /* Welcome text */
-
-.display-4 animated-text{
-    color: wheat;
-}
 
 /* Define the container style */
 .text-center {
@@ -485,9 +452,6 @@ h1 {
         left: 100%;
     }
 }
-
-
-
 
 .nav-link.text-primary {
     border: 1px solid #ccc; /* Adjust the color and thickness as needed */
@@ -600,70 +564,156 @@ h1 {
 }
 
 
-/* Courses section styles */
-.container-fluid.py-5 {
-    background-color: #f8f8f8;
+
+/*Registration section*/
+/* CSS for the "Sign Up Now" card */
+/* Style the card header */
+.card-header {
+    background-color: #007bff;
 }
 
-.text-center.mb-5 h1 {
-    font-size: 2.5rem;
-}
+    /* Style the card title */
+    .card-header h1 {
+        color: white;
+        font-size: 24px;
+    }
 
-.rounded.overflow-hidden {
-    background-color: #fff;
-    color: #ffffff; /* Changed text color inside containers to white */
+/* Style the form inputs and select */
+.form-control, .custom-select {
+    border: none;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    background-color: #f8f9fa;
+}
+
+/* Style the specific "Sign Up Now" button */
+.custom-signup-button {
+    background-color: #FFA500; /* Changed to orange background color */
+    border: none;
+    border-radius: 10px; /* Added border-radius for rounded corners */
+    padding: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    width: 100%; /* Make the button same width as its container */
+    margin-top: 20px; /* Adjust the top margin to move it lower */
+}
+
+
+/* Center the text in the card body */
+.card-body {
+    text-align: center;
+}
+
+/* Add some spacing to the bottom of the card body */
+.card-body {
     margin-bottom: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
 }
 
-    .rounded.overflow-hidden:hover {
-        transform: translateY(-5px);
+    .card-body .form-group {
+        margin-bottom: 10px;
+    }
+        .card-body .form-group .custom-select {
+            width: 100%;
+        }
+
+
+/*Latest section*/
+
+/* Style for the entire blog section */
+.container-fluid.py-5.bg-light {
+    padding-top: 80px; /* Add space at the top */
+}
+
+/* Style for the section headings */
+.text-primary.text-uppercase.mb-3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Style for individual blog items */
+.blog-item {
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .blog-item:hover {
+        transform: translateY(-5px); /* Add a slight hover effect */
     }
 
-.img-fluid {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.bg-secondary.p-4 {
-    padding: 20px;
-}
-
-.d-flex.mb-3 {
-    margin-bottom: 10px;
-}
-
-.d-flex span {
-    font-size: 14px;
-}
-
-.course-title a {
-    font-size: 20px;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
-}
-
-    .course-title a:hover {
-        color: #007bff;
-    }
-
-.course-meta {
+.blog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    font-size: 14px;
-    color: #ffffff; /* Changed text color inside containers to white */
+    opacity: 0; /* Start with zero opacity */
+    transition: opacity 0.3s ease-in-out;
 }
 
-    .course-meta .course-price {
-        color: #ffffff; /* Changed text color inside containers to white */
-        font-weight: 600;
+
+.blog-item:hover .blog-overlay {
+    opacity: 1; /* Fade in overlay on hover */
+}
+
+.text-dark.mb-3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.text-primary.m-0 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Adjust spacing between blog items */
+.col-lg-4.mb-4 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Ensure images are responsive */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/*explore top subjects*/
+.col-lg-3.col-md-6.mb-4 {
+    position: relative;
+}
+
+    .col-lg-3.col-md-6.mb-4 .cat-overlay.text-white.text-decoration-none {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
     }
 
-/* Add more styles as needed */
+    .col-lg-3.col-md-6.mb-4:hover .cat-overlay.text-white.text-decoration-non {
+        background-color: rgba(0, 0, 0, 0.9); /* Darken the background on hover */
+        color: #fff; /* Change text color to white on hover */
+    }
+
+
+
+
 
