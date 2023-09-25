@@ -45,6 +45,11 @@ namespace TalentBay1.Controllers
 
         public IActionResult BrowseCourses(string searchTerm)
         {
+            // Fetch unique categories from the database
+            var categories = _context.Courses.Select(c => c.Category).Distinct().ToList();
+
+            ViewBag.Categories = categories;  // Pass categories to the view
+
             var courses = _context.Courses.ToList();
 
             // Filter courses based on the search term (case-insensitive)

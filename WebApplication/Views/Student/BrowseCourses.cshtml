@@ -9,12 +9,25 @@
 }
 
 <h1 class="text-center">Available Courses</h1>
-
+<style>
+    .custom-img {
+        width: contain; /* Adjust the width as needed */
+        height: 150px; /* Adjust the height as needed */
+        object-fit: cover; /* Maintain aspect ratio and cover the specified dimensions */
+    }
+    </style>
 <div class="container-fluid">
     <!-- Search form -->
     <form class="mb-3">
         <div class="input-group">
             <input type="text" class="form-control" id="searchTerm" placeholder="Search for courses">
+            <select class="form-control" id="categoryFilter">
+                <option value="">All Categories</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
         </div>
     </form>
 
@@ -23,11 +36,11 @@
         {
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                    <img src="@Url.Content(item.ImageURL)" class="card-img-top custom-img" alt="Course Image">
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
                         <p class="card-text">@item.Description</p>
-                        <p class="card-text">Category: @item.Category</p>
+                        <p class="card-text category">Category: @item.Category</p>
                         <p class="card-text">Enrollment Count: @item.EnrollmentCount</p>
                         <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-info">View Details</a>
                         <form asp-action="Enroll" method="post">
@@ -45,27 +58,32 @@
     </div>
 </div>
 
-
-
 @section scripts {
     <script>
-        // Get all courses and filter based on search term
-        function filterCourses(searchTerm) {
+        function filterCourses() {
+            const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value.toLowerCase();
+
             const courses = document.querySelectorAll('.card');
 
             courses.forEach(course => {
                 const title = course.querySelector('.card-title').innerText.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    course.style.display = 'block';
+                const category = course.querySelector('.card-text.category').innerText.toLowerCase();
+
+                const card = course.parentElement;
+
+                const titleMatch = title.includes(searchTerm);
+                const categoryMatch = selectedCategory === '' || category.includes(selectedCategory);
+
+                if (titleMatch && categoryMatch) {
+                    card.classList.remove('d-none');
                 } else {
-                    course.style.display = 'none';
+                    card.classList.add('d-none');
                 }
             });
         }
 
-        document.getElementById('searchTerm').addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase();
-            filterCourses(searchTerm);
-        });
+        document.getElementById('searchTerm').addEventListener('input', filterCourses);
+        document.getElementById('categoryFilter').addEventListener('change', filterCourses);
     </script>
 }

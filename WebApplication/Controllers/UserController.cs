@@ -219,6 +219,44 @@ namespace TalentBay1.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EnrollUser(int courseId, string userId)
+        {
+            try
+            {
+                var course = await _context.Courses.FindAsync(courseId);
+
+                if (course == null)
+                {
+                    return NotFound();
+                }
+
+                var enrollment = new Enrollment
+                {
+                    UserId = userId,
+                    CourseID = courseId,
+                    EnrollmentDate = DateTime.Now
+                };
+
+                // Increment the enrollment count
+                course.EnrollmentCount++;
+
+                // Save changes to the database
+                _context.Enrollments.Add(enrollment);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("CourseDetails", new { id = courseId });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                ModelState.AddModelError(string.Empty, "An error occurred while enrolling the user.");
+                return RedirectToAction("CourseDetails", new { id = courseId });
+            }
+        }
+
         // COURSE STUFF FOR ADMINS
 
 
