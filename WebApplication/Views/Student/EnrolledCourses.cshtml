@@ -4,6 +4,13 @@
     ViewData["Title"] = "EnrolledCourses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .custom-img {
+        width: contain; /* Adjust the width as needed */
+        height: 150px; /* Adjust the height as needed */
+        object-fit: cover; /* Maintain aspect ratio and cover the specified dimensions */
+    }
+</style>
 
 <h1 class="text-center">Your Enrolled Courses</h1>
 
@@ -13,7 +20,7 @@
         {
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <img src="@Url.Content(item.ImageURL)" class="card-img-top" alt="Course Image">
+                    <img src="@Url.Content(item.ImageURL)" class="card-img-top custom-img" alt="Course Image">
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
                         <p class="card-text">@item.Description</p>

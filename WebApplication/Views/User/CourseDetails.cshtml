@@ -59,9 +59,9 @@
         <form asp-controller="User" asp-action="EnrollUser" method="post">
             <input type="hidden" name="courseId" value="@((ViewData["Course"] as Course).CourseID)" />
             <select name="userId" class="form-control">
-                @foreach (var user in ViewBag.NotEnrolledUsers)
+                @foreach (var enrollment in ViewData["Enrollments"] as List<Enrollment>)
                 {
-                    <option value="@user.Id">@user.Email</option>
+                    <option value="@enrollment.UserId">@enrollment.User.Email</option>
                 }
             </select>
             <button type="submit" class="btn btn-primary mt-2">Enroll User</button>
@@ -78,8 +78,6 @@
         </form>
     </div>
 }
-
-
 
 <div>
     <a asp-action="CourseEdit" asp-route-id="@Model?.CourseID">Edit</a> |
